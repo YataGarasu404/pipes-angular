@@ -1,0 +1,100 @@
+<!-- Stylesheet CSS ------------------------------------------------------->
+
+<style>
+    .red-span{
+     color: white; 
+     background-color: cornflowerblue;
+     border-radius: 10px;
+     padding: 5px;
+    }.blue-span{
+     color: white;
+     background-color: lightcoral;
+     border-radius: 10px;
+     padding: 5px;
+    }.meta{
+        color: greenyellow;
+    }.out-meta{
+        color: cornflowerblue;
+    }
+</style>
+
+<!------------------------------------------------------------------------->
+
+<p-panel header="Pipes personalizados" class="p-1">
+    <p>
+        Pipes personalizados - Creados
+        <!-- "insUpperCase" es un booleano -->
+    </p>
+    <span ngClass="
+    {{ 
+        isUpperCase ? 'red-span' : 'blue-span' 
+    }}">
+         {{'toggleCase' | toggleCase:isUpperCase}} 
+    </span>
+  </p-panel>
+
+<!-- TOOLBAR -------------------------------------------------------------->
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+        <p-button label="ToggleCase" 
+                    icon="pi pi-cog" 
+                    styleClass="p-button-warning p-button-rounded p-button-outlined"
+                    (click)="toggleUpperCase()">
+        <!-- Llama el método que cambia el valor de "insUpperCase" -->
+        </p-button>
+    </div>
+
+    <div class="p-toolbar-group-end">
+        
+        <p-button label="ABC Order"
+                    (onClick)="chageOrder('name')"
+                    icon="pi pi-box"   
+                    class="mr-3" 
+                    styleClass="p-button-help p-button-rounded p-button-outlined">
+        </p-button>
+        <p-button label="Meta Order"
+                    (onClick)="chageOrder('meta')"
+                    icon="pi pi-box"   
+                    class="mr-3" 
+                    styleClass="p-button-danger p-button-rounded p-button-outlined">
+        </p-button>
+        <p-button label="Lane Order"
+                    (onClick)="chageOrder('lane')"
+                    icon="pi pi-box"   
+                    styleClass="p-button-info p-button-rounded p-button-outlined">
+        </p-button>
+    </div>
+    
+  </p-toolbar>
+
+<!-- TABLE ---------------------------------------------------------------->
+
+  <div class="grid">
+
+    <div class="col mt-2">
+        <p-panel>
+            <p-table [value]="champs | sorter:sorter">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Metagame</th>
+                        <th>Lane</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-champ>
+                    <tr>
+                        <td>{{ champ.name }}</td>
+                        <td ngClass="
+                        {{ 
+                            champ.meta ? 'meta' : 'out-meta' 
+                        }}">
+                            {{ champ.meta | meta }}</td>
+                        <td>{{ champ.lane | lane }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-panel>
+
+    </div>
+
+  </div>
